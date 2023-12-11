@@ -14,7 +14,7 @@ from input_matrix import hlp, input_matrix_bt
 from BD import bd_get_last
 import numpy as np
 
-bot = telebot.TeleBot("6181173220:AAF3-woXCuP3u15rTNeccbCJElP1T1En5_Y")
+bot = telebot.TeleBot("-")
 
 
 def all_button():
