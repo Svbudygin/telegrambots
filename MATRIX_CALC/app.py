@@ -11,10 +11,8 @@ from utils.input_matrix import hlp, input_matrix_bt
 import numpy as np
 import os
 
-bot = telebot.TeleBot("6181173220:AAF3-woXCuP3u15rTNeccbCJElP1T1En5_Y")
+bot = telebot.TeleBot("6181173220:AAF3-woXCuP3u15rTNeccbCJElP1T1En_Y")
 
-# test
-# bot = telebot.TeleBot("6066580092:AAFbJIZ8XX3H4oHDwS7CRxhH-c0yXF7kVWs")
 
 
 def all_button():
