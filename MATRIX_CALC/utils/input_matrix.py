@@ -10,6 +10,7 @@ def correct_fraction(s):
             row.append(int(i))
         elif "/" in i:
             i = i.split('/')
+
             row.append(eval(f'f({i[0]},{i[1]})'))
         else:
             row.append(eval(i))

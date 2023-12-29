@@ -1,6 +1,7 @@
 import telebot
 from telebot import types
 import json
+import re
 import shutil
 from utils.Transposition import transposition
 from utils.REF import ref
@@ -10,8 +11,10 @@ from utils.input_matrix import hlp, input_matrix_bt
 import numpy as np
 import os
 
-bot = telebot.TeleBot()
+bot = telebot.TeleBot("6181173220:AAF3-woXCuP3u15rTNeccbCJElP1T1En5_Y")
 
+# test
+# bot = telebot.TeleBot("6066580092:AAFbJIZ8XX3H4oHDwS7CRxhH-c0yXF7kVWs")
 
 
 def all_button():
@@ -82,10 +85,11 @@ def callback_function(call):
         try:
             if np.linalg.det(matrix) != 0:
                 bot.send_message(call.message.chat.id, f"Inverse:\n{rref(data, inv=True)}")
+            else:
+                bot.send_message(call.message.chat.id, "Matrix with det = 0 has no inverse")
         except np.linalg.LinAlgError:
             bot.send_message(call.message.chat.id, "matrix must be square")
-        else:
-            bot.send_message(call.message.chat.id, "Matrix with det = 0 has no inverse")
+
     elif call.data == "All the steps ref":
         bot.send_message(call.message.chat.id, f"{ref(data, long=True)}")
     elif call.data == "All the steps rref":
@@ -102,14 +106,16 @@ def callback_function(call):
 
 
 def check(data):
-    data = data.split()
+    # data = data.split()
+    data = re.split(r'\s|/', data)
     if len(data) == 3 and 't' in data:
         try:
             lst = list(map(int, data[:-1]))
             return True
         except ValueError:
             return False
-    if len(data) == 2 or len(data) == 3:
+
+    if len(data) == 2 or len(data) == 3 or len(data) == 4 or len(data) == 5 :
         try:
             lst = list(map(int, data))
             return True
@@ -129,12 +135,6 @@ def opertion_tb(message):
             with open(f"data/{message.chat.id}.json", "w", encoding="utf-8") as file:
                 json.dump(new_data, file)
             bot.send_message(message.chat.id, new_data, reply_markup=markup)
-    #     else:
-    #         bot.send_message(message.chat.id, stroka_ERO)
-    #         bot.register_next_step_handler(message=message, callback=opertion_tb)
-    # else:
-    #     bot.send_message(message.chat.id, stroka_ERO)
-    #     bot.register_next_step_handler(message=message, callback=opertion_tb)
 
 
 bot.infinity_polling()
